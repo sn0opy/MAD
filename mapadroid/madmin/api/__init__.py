@@ -6,7 +6,7 @@ from . import apiRequest, apiResponse
 from .autoconf import ftr_autoconf
 from .apks import ftr_mad_apks
 from .resources import (ftr_area, ftr_auth, ftr_device, ftr_devicesetting, ftr_geofence, ftr_monlist, ftr_routecalc,
-                        ftr_walker, ftr_walkerarea, ftr_pogoauth)
+                        ftr_walker, ftr_walkerarea, ftr_pogoauth, ftr_webhook)
 
 BASE_URI = '/api'
 valid_resources = {
@@ -20,10 +20,9 @@ valid_resources = {
     'routecalc': ftr_routecalc.APIRouteCalc,
     'walker': ftr_walker.APIWalker,
     'walkerarea': ftr_walkerarea.APIWalkerArea,
-    # MAD APKs
     'mad_apks': ftr_mad_apks.APIMadAPK,
-    # Autoconfig
-    'autoconf': ftr_autoconf.APIAutoConf
+    'autoconf': ftr_autoconf.APIAutoConf,
+    'webhook': ftr_webhook.APIWebhook
 }
 
 
