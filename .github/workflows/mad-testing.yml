@@ -34,7 +34,7 @@ jobs:
         python3 start.py -ut -cm -cf configs/config.ini.travis -mf configs/mappings.travis.json
     - name: DB cleanup
       run: |
-        mysql -umad -pmad -e "DROP DATABASE mad; CREATE DATABASE mad;"
+        mysql -hlocalhost -umad -pmad -e "DROP DATABASE mad; CREATE DATABASE mad;"
     - name: Test run in normal mode
       run: |
         python3 start.py -ut -cf configs/config.ini.travis -mf configs/mappings.travis.json
