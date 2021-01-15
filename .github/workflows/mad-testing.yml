@@ -1,5 +1,9 @@
 name: MAD test run
-on: [push]
+on:
+  push:
+    branches:
+    - master
+  pull_request:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,3 +32,9 @@ jobs:
     - name: Test run with config mode
       run: |
         python3 start.py -ut -cm -cf configs/config.ini.travis -mf configs/mappings.travis.json
+    - name: DB cleanup
+      run: |
+        mysql -umad -pmad -e "DROP DATABASE mad; CREATE DATABASE mad;"
+    - name: Test run in normal mode
+      run: |
+        python3 start.py -ut -cf configs/config.ini.travis -mf configs/mappings.travis.json
