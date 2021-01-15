@@ -18,6 +18,9 @@ jobs:
         mysql database: 'mad'
         mysql user: 'mad'
         mysql password: 'mad'
+    - name: DB cleanup
+      run: |
+        mysql -h127.0.0.1 -umad -pmad -e "DROP DATABASE mad; CREATE DATABASE mad;"
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -32,9 +35,6 @@ jobs:
     - name: Test run with config mode
       run: |
         python3 start.py -ut -cm -cf configs/config.ini.travis -mf configs/mappings.travis.json
-    - name: DB cleanup
-      run: |
-        mysql -hlocalhost -umad -pmad -e "DROP DATABASE mad; CREATE DATABASE mad;"
     - name: Test run in normal mode
       run: |
         python3 start.py -ut -cf configs/config.ini.travis -mf configs/mappings.travis.json
