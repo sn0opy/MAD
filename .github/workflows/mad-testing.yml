@@ -1,0 +1,30 @@
+name: MAD test run
+on: [push]
+jobs:
+  runs-on: ubuntu-latest
+  strategy:
+    matrix:
+      python-version: [3.6, 3.7, 3.8]
+  build:
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup MariaDB
+      uses: getong/mariadb-action@v1.1
+      with:
+        mysql database: 'mad'
+        mysql user: 'mad'
+        mysql password: 'mad'
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install flake8 flake8-variables-names flake8-logging-format pep8-naming flake8-eradicate
+    - name: Lint with flake8
+      run: |
+        flake8
+    - name: Test run with config mode
+      run: |
+        python3 start.py -ut -cm -cf configs/config.ini.travis -mf configs/mappings.travis.json
